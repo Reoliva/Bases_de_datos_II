@@ -27,19 +27,6 @@ CREATE TABLE regions(
     region_description TEXT
 );
 
-CREATE TABLE shippers(
-    shipper_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    company_name TEXT,
-    phone TEXT,
-    address TEXT,
-    city TEXT,
-    region TEXT,
-    postal_code TEXT,
-    country TEXT,
-    phone TEXT,
-    fax TEXT,
-    home_page TEXT
-);
 
 CREATE TABLE territories(
     territory_id TEXT NOT NULL PRIMARY KEY,
@@ -129,7 +116,7 @@ CREATE TABLE employees(
     home_phone TEXT,
     extension TEXT,
     reports_to INT,
-    FOREIGN KEY reports_to REFERENCES employee(employee_id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY reports_to REFERENCES employees(employee_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE employee_territories(
