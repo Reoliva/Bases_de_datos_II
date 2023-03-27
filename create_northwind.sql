@@ -10,7 +10,7 @@ CREATE TABLE categories(
 
 
 CREATE TABLE customers(
-    customer_id TEXT NOT NULL PRIMARY KEY,
+    customer_id VARCHAR(50) PRIMARY KEY,
     company_name TEXT,
     contact_name TEXT,
     contact_title TEXT,
@@ -31,35 +31,7 @@ CREATE TABLE regions(
 
 
 CREATE TABLE territories(
-    territory_id TEXT NOT NULL PRIMARY KEY,
-    territory_description TEXT,
-    region_id INT,
-    FOREIGN KEY (region_id) REFERENCES regions(region_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE products(
-    product_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    product_name TEXT,
-    supplier_id INT,
-    category_id INT,
-    quantity_per_unit TEXT,
-    unit_price DECIMAL,
-    units_in_stock INT,
-    units_on_order INT,
-    reorder_level INT,
-    discontinued INT,
-    FOREIGN KEY (supplier_id)  REFERENCES suppliers(supplier_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE ON UPDATE CASCADE 
-);
-
-CREATE TABLE shippers(
-    shipper_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    company_name TEXT,
-    phone TEXT,
-);
-
-CREATE TABLE territories(
-    territory_id TEXT NOT NULL PRIMARY KEY,
+    territory_id VARCHAR(80) NOT NULL PRIMARY KEY,
     territory_description TEXT,
     region_id INT,
     FOREIGN KEY (region_id) REFERENCES regions(region_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -81,12 +53,28 @@ CREATE TABLE suppliers(
 );
 
 
-CREATE TABLE territories(
-    territory_id TEXT NOT NULL PRIMARY KEY,
-    territory_description TEXT,
-    region_id INT,
-    FOREIGN KEY (region_id) REFERENCES regions(region_id) ON DELETE CASCADE ON UPDATE CASCADE
+
+CREATE TABLE products(
+    product_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_name TEXT,
+    supplier_id INT,
+    category_id INT,
+    quantity_per_unit TEXT,
+    unit_price DECIMAL,
+    units_in_stock INT,
+    units_on_order INT,
+    reorder_level INT,
+    discontinued INT,
+    FOREIGN KEY (supplier_id)  REFERENCES suppliers(supplier_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE ON UPDATE CASCADE 
 );
+
+CREATE TABLE shippers(
+    shipper_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    company_name TEXT,
+    phone TEXT
+);
+
 
 CREATE TABLE employees(
     employee_id INT NOT NULL PRIMARY KEY,
@@ -103,25 +91,16 @@ CREATE TABLE employees(
     country TEXT,
     home_phone TEXT,
     extension TEXT,
-    reports_to INT,
-    FOREIGN KEY reports_to REFERENCES employees(employee_id) ON DELETE CASCADE ON UPDATE CASCADE
+    reports_to INT
 );
+
+ALTER TABLE employees ADD FOREIGN KEY(reports_to) REFERENCES employees(employee_id);
 
 CREATE TABLE employee_territories(
     employee_id INT NOT NULL,
-    territory_id TEXT NOT NULL,
+    territory_id VARCHAR(80) NOT NULL,
     FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (territory_id) REFERENCES territories(territory_id) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-CREATE TABLE order_details(
-    order_id INT,
-    product_id INT,
-    unit_price DECIMAL,
-    quantity INT,
-    discount DECIMAL,
-    FOREIGN KEY order_id REFERENCES orders(order_id) ON UPDATE CASCADE ON UPDATE DELETE,
-    FOREIGN KEY product_id REFERENCES products(product_id) ON UPDATE CASCADE ON UPDATE
 );
 
 CREATE TABLE orders(
@@ -140,3 +119,15 @@ CREATE TABLE orders(
     ship_postal_code TEXT,
     ship_country TEXT
 );
+
+
+    CREATE TABLE order_details(
+        order_id INT,
+        product_id INT,
+        unit_price DECIMAL,
+        quantity INT,
+        discount DECIMAL,
+        FOREIGN KEY (order_id) REFERENCES orders(order_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(product_id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
