@@ -939,29 +939,3 @@ INSERT INTO order_details VALUES(515,10442,54,80);
 INSERT INTO order_details VALUES(516,10442,66,60);
 INSERT INTO order_details VALUES(517,10443,11,6);
 INSERT INTO order_details VALUES(518,10443,28,12);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
