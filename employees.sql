@@ -1,5 +1,6 @@
-INSERT INTO Employees VALUES(1, 'Davolio','Nancy','Sales Representative','Ms.','1968-12-08','2012-05-01','507 - 20th Ave. E.Apt. 2A,Seattle','North America','98122','USA','(206) 555-9857','5467',2);
-INSERT INTO Employees VALUES(2, 'Fuller','Andrew','Vice President', 'Sales','Dr.','1972-02-19','2012-08-14','908 W. Capital Way','Tacoma','North America','98401','USA','(206) 555-9482','3457',NULL);
+INSERT INTO Employees(employee_id, last_name, first_name, title, title_of_courtesy, birth_day, hire_date, address, city, region, postal_code, country, home_phone, extension) VALUES(1, 'Davolio','Nancy','Sales Representative','Ms.','1968-12-08','2012-05-01','507 - 20th Ave. E.Apt. 2A','Seattle','North America','98122','USA','(206) 555-9857','5467');
+INSERT INTO Employees VALUES(2, 'Fuller','Andrew','Vice President Sales','Dr.','1972-02-19','2012-08-14','908 W. Capital Way','Tacoma','North America','98401','USA','(206) 555-9482','3457',NULL);
+UPDATE employees SET reports_to= 2 WHERE employee_id=1;
 INSERT INTO Employees VALUES(3, 'Leverling','Janet','Sales Representative','Ms.','1983-08-30','2012-04-01','722 Moss Bay Blvd.','Kirkland','North America','98033','USA','(206) 555-3412','3355',2);
 INSERT INTO Employees VALUES(4, 'Peacock','Margaret','Sales Representative','Mrs.','1957-09-19','2013-05-03','4110 Old Redmond Rd.','Redmond','North America','98052','USA','(206) 555-8122','5176',2);
 INSERT INTO Employees VALUES(5, 'Buchanan','Steven','Sales Manager','Mr.','1975-03-04','2013-10-17','14 Garrett Hill','London','British Isles','SW1 8JR','UK','(71) 555-4848','3453',2);
