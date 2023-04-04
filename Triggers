@@ -1,4 +1,4 @@
--comprobar stock antes de generar orden ==> no se puedevender un producto inexistente
+-comprobar stock antes de generar orden ==> no se puede vender un producto inexistente
 
 -no se puede realizar un descuento superior a 80%
 
