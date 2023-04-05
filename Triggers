@@ -1,4 +1,4 @@
--comprobar stock antes de generar orden ==> no se puede vender un producto inexistente
+--comprobar stock antes de generar orden ==> no se puede vender un producto inexistente
 
 delimiter //
 CREATE TRIGGER check_stock
@@ -14,7 +14,7 @@ END;//
 
 delimiter ;
 
--no se puede realizar un descuento superior a 80%
+--no se puede realizar un descuento superior a 80%
 
 delimiter //
 
@@ -29,7 +29,7 @@ END;//
 
 delimiter ;
 
--actualizar automáticamente el stock de un producto en la tabla de productos cuando se inserta una nueva fila en la tabla de órdenes
+--actualizar automáticamente el stock de un producto en la tabla de productos cuando se inserta una nueva fila en la tabla de órdenes
 
 delimiter //
 
