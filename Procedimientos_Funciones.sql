@@ -62,7 +62,7 @@ DELIMITER ;
 
 --Función para obtener el precio total de un pedido:
 --Restricción/Regla de negocio: Calcular el precio total de un pedido, sumando el precio unitario de cada producto multiplicado por la cantidad, y aplicando descuentos si los hubiera.
-
+--ESTE NO FUNCIONA DICE QUE ES NO DETERMINISTA
 DELIMITER //
 
 CREATE FUNCTION get_order_total(order_id INT)
