@@ -67,6 +67,7 @@ DELIMITER //
 
 CREATE FUNCTION get_order_total(order_id INT)
 RETURNS DECIMAL(10, 2)
+DETERMINISTIC
 BEGIN
     DECLARE total DECIMAL(10, 2);
     
@@ -83,6 +84,7 @@ END;
 DELIMITER ;
 
 
+
 --Función para obtener la edad de un empleado en años:
 --Restricción/Regla de negocio: Calcular la edad de un empleado a partir de su fecha de nacimiento, en años, redondeando hacia abajo.
 
@@ -90,6 +92,7 @@ DELIMITER //
 
 CREATE FUNCTION get_employee_age(employee_id INT)
 RETURNS INT
+DETERMINISTIC
 BEGIN
     DECLARE age INT;
     
@@ -105,6 +108,7 @@ END;
 
 DELIMITER ;
 
+
 --Función para obtener el nombre completo de un cliente en mayúsculas:
 --Restricción/Regla de negocio: Obtener el nombre completo de un cliente, concatenando su nombre y apellido, y convirtiéndolo a mayúsculas.
 
@@ -112,6 +116,7 @@ DELIMITER //
 
 CREATE FUNCTION get_customer_fullname(customer_id VARCHAR(50))
 RETURNS VARCHAR(100)
+DETERMINISTIC
 BEGIN
     DECLARE fullname VARCHAR(100);
     
