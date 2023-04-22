@@ -3,6 +3,10 @@ Show all of the products grouped into unit_price groups.
 Show the total amount of products in each unit_price group.
 Order the list by the unit_price decending
 
+Mostrar todos los productos agrupados en grupos de precios_unitarios.
+Mostrar la cantidad total de productos en cada grupo de precios_unitarios.
+Ordenar la lista por el precio_unitario en orden descendente.
+
 CREATE VIEW product_price_groups AS
 SELECT CONCAT("$",FLOOR(unit_price/10)*10+1," - $",FLOOR(unit_price/10)*10+10) AS price_group, COUNT(*) AS total_products
 FROM products
@@ -16,6 +20,12 @@ Overstock is defined as units_in_stock($)/(unit_price(u)) >= 5.
 unit_price is in units dolar.
 units_in_stock is in units u.
 
+Mostrar los productos_id, unit_price, units_in_stock y isOverstock de la tabla de productos.
+Mostrar isOverstock como un booleano 0 o 1.
+Overstock se define como units_in_stock ($) / (unit_price (u)) >= 5.
+unit_price está en unidades de dólares.
+units_in_stock está en unidades u.
+
 CREATE VIEW product_info AS
 SELECT product_id, unit_price, units_in_stock,
 CASE WHEN units_in_stock / unit_price >= 5 THEN 1 ELSE 0 END AS isOverstock
@@ -25,6 +35,10 @@ FROM products;
 3_
 Show products_id, product_name, category_id, and supplier´s phone.
 Show only the products who has 0 units_in_stock and the company_name first name is 'New Orleans Cajun Delights'
+
+Mostrar products_id, product_name, category_id y el teléfono del proveedor.
+Mostrar solo los productos que tienen 0 unidades en stock y el nombre de la compañía empieza por 'New Orleans Cajun Delights'
+
 
 CREATE VIEW out_of_stock_products AS
 SELECT p.product_id, p.product_name, p.category_id, s.phone
@@ -41,6 +55,14 @@ The password must be the following, in order:
 2. the numerical length of customer's contact_name
 3. the numerical length of customer's company_name
 
+Todos los clientes que tienen pedidos, pueden ver el seguimiento de sus pedidos en nuestro sitio. A esos clientes se les otorga una contraseña temporal después de su primer pedido. Muestra el customer_id y temp_password.
+
+La contraseña debe ser la siguiente, en orden:
+
+customer_id
+la longitud numérica del nombre de contacto del cliente
+la longitud numérica del nombre de la empresa del cliente
+
 CREATE VIEW orders_tracking_passwords AS
 SELECT customers.customer_id, 
        CONCAT(customers.customer_id, LENGTH(customers.contact_name), LENGTH(customers.company_name)) AS temp_password
@@ -52,6 +74,8 @@ WHERE orders.order_id IS NOT NULL;
 5_
 Show the contact name, company name, and phone number of the suppliers that still have stock of their products.
 
+Mostrar el nombre de contacto, nombre de la compañía y número de teléfono de los proveedores que todavía tienen stock de sus productos.
+
 CREATE VIEW suppliers_with_stock AS
 SELECT s.contact_name, s.company_name, s.phone
 FROM suppliers s
@@ -60,6 +84,9 @@ WHERE p.units_in_stock > 0;
 
 6_
 Sort the territories names in ascending order in such a way that the province 'Boston' is always on top.
+
+Ordena los nombres de los territorios en orden ascendente de tal manera que la provincia 'Boston' siempre aparezca en primer lugar.
+
 CREATE VIEW sorted_territories AS
 SELECT t.territory_id, t.territory_description
 FROM territories t
@@ -73,6 +100,7 @@ ORDER BY
 
 7_
 For each day display the total amount of orders on that day. Display the amount changed from the previous date.
+Para cada día, mostrar el total de pedidos realizados en ese día. Mostrar también la cantidad de pedidos que cambió en comparación con el día anterior.
 
 CREATE VIEW daily_orders_total AS
 SELECT 
@@ -96,6 +124,7 @@ GROUP BY order_day;
 
 8_
 Show the percent of employees that have 'Mr' as their title of courtesy. Round the answer to the nearest  multiple of 10 number and in percent form.
+Mostrar el porcentaje de empleados que tienen 'Mr' como titulo de cortesía. Redondear la respuesta lo más cerca de un número múltiplo de 10 y en forma de porcentaje.
 
 CREATE VIEW percent_employees_mr AS
 SELECT ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM employees), -1) AS percent_mr_employees
