@@ -64,7 +64,15 @@ FROM orders;
 
 6_
 Sort the territories names in ascending order in such a way that the province 'Boston' is always on top.
-
+CREATE VIEW sorted_territories AS
+SELECT t.territory_id, t.territory_description
+FROM territories t
+ORDER BY
+  CASE 
+    WHEN t.territory_description LIKE '%Boston%' THEN 0
+    ELSE 1
+  END,
+  t.territory_description ASC;
 
 
 7_
