@@ -66,5 +66,11 @@ FROM orders;
 Show the provinces that has more patients identified as 'M' than 'F'. Must only show full province_name
 
 
+8_
+Show the percent of employees that have 'Mr' as their title of courtesy. Round the answer in percent form.
+CREATE VIEW percent_employees_mr AS
+SELECT ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM employees), -1) AS percent_mr_employees
+FROM employees
+WHERE title_of_courtesy LIKE '%Mr.%'
 
 
