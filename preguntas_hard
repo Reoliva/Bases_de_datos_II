@@ -33,5 +33,14 @@ JOIN suppliers s ON p.supplier_id = s.supplier_id
 WHERE p.units_in_stock = 0 AND s.company_name LIKE 'Exotic Liquids%';
 
 
+4_
+All customers who have orders, can see their orders tract on our site. Those customers are given a temporary password after their first order. Show the customer_id and temp_password.
+
+The password must be the following, in order:
+1. customer_id
+2. the numerical length of customer's contact_name
+3. the numerical length of customer's company_name
+
+
 
 
