@@ -48,5 +48,9 @@ Each shipp costs $20 for customers without amazon prime, and $5 for customers wi
 Give each customer a 'Yes' if they have amazon prime, and a 'No' if they don't have amazon prime. Add up the shipp_total cost for each has_amazon_prime group.
 
 
+6_
+Show the provinces that has more patients identified as 'M' than 'F'. Must only show full province_name
+
+
 
 
