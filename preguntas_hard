@@ -63,7 +63,7 @@ SELECT
 FROM orders;
 
 6_
-Show the territories that has more employeers identified as 'Ms' than 'Mr'. Must only territories names (hay que hacer un join para mostrar los nombres)
+Sort the territories names in ascending order in such a way that the province 'Ontario' is always on top.
 
 CREATE VIEW territories_ms_more_than_mr AS
 SELECT t.TerritoryDescription AS Territory
