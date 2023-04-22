@@ -3,5 +3,9 @@ Show the total amount of products in each unit_price group.
 Order the list by the unit_price decending
 
 
-
+Show products_id, unit_price, units_in_stock, isOverstock from the patients table.
+Display isOverstock as a boolean 0 or 1.
+Overstock is defined as units_in_stock($)/(unit_price(u)) >= 30.
+unit_price is in units dolar.
+units_in_stock is in units u.
 
