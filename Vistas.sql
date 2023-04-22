@@ -1,60 +1,3 @@
---Vista de productos con descuento:
-CREATE VIEW discounted_products AS
-SELECT product_name, unit_price, discount
-FROM products
-WHERE discount > 0;
-
---Vista de pedidos pendientes:
-CREATE VIEW pending_orders AS
-SELECT order_id, customer_id, order_date
-FROM orders
-WHERE status = 'pending';
-
---Vista de empleados por departamento:
-CREATE VIEW employees_by_department AS
-SELECT employee_id, first_name, last_name, department
-FROM employees
-ORDER BY department;
-
---Vista de clientes con compras recientes:
-CREATE VIEW recent_customers AS
-SELECT customer_id, first_name, last_name, MAX(order_date) AS last_order_date
-FROM orders
-GROUP BY customer_id;
-
---Vista de productos más vendidos:
-CREATE VIEW top_selling_products AS
-SELECT product_id, SUM(quantity) AS total_sold
-FROM order_details
-GROUP BY product_id
-ORDER BY total_sold DESC;
-
---Vista de empleados con salarios superiores al promedio:
-CREATE VIEW high_salary_employees AS
-SELECT employee_id, first_name, last_name, salary
-FROM employees
-WHERE salary > (SELECT AVG(salary) FROM employees);
-
---Vista de clientes con direcciones de envío y facturación diferentes:
-CREATE VIEW customers_with_different_shipping_billing AS
-SELECT customer_id, first_name, last_name
-FROM customers
-WHERE shipping_address <> billing_address;
-
---Vista de productos agotados:
-CREATE VIEW out_of_stock_products AS
-SELECT product_id, product_name, units_in_stock
-FROM products
-WHERE units_in_stock = 0;
-
---Vista de total de ventas por categoría de producto:
-CREATE VIEW sales_by_category AS
-SELECT c.category_name, SUM(od.unit_price * od.quantity) AS total_sales
-FROM order_details od
-JOIN products p ON od.product_id = p.product_id
-JOIN categories c ON p.category_id = c.category_id
-GROUP BY c.category_name;
-
 --northwind 1
 --Show the employee's first_name and last_name, a "num_orders" column with a count of the orders taken, and a column called "Shipped" that displays "On Time" if the order shipped on time and "Late" if the order shipped late.
 --Order by employee last_name, then by first_name, and then descending by number of orders.
@@ -113,7 +56,7 @@ SELECT patient_id, weight, height,
       END) AS isObese
 FROM patients;
 
-
+--hospital 3
 --Show patient_id, first_name, last_name, and attending doctor's specialty.
 --Show only the patients who has a diagnosis as 'Epilepsy' and the doctor's first name is 'Lisa'
 --Check patients, admissions, and doctors tables for required information.
@@ -130,3 +73,82 @@ WHERE
   ph.first_name = 'Lisa' and
   a.diagnosis = 'Epilepsy'
 
+
+--hospital 4
+--All patients who have gone through admissions, can see their medical documents on our site. Those patients are given a temporary password after their first admission. Show the patient_id and temp_password.
+--The password must be the following, in order:
+--1. patient_id
+--2. the numerical length of patient's last_name
+--3. year of patient's birth_date
+
+SELECT
+  DISTINCT P.patient_id,
+  CONCAT(
+    P.patient_id,
+    LEN(last_name),
+    YEAR(birth_date)
+  ) AS temp_password
+FROM patients P
+  JOIN admissions A ON A.patient_id = P.patient_id
+
+--hospital 5
+--Each admission costs $50 for patients without insurance, and $10 for patients with insurance. All patients with an even patient_id have insurance.
+--Give each patient a 'Yes' if they have insurance, and a 'No' if they don't have insurance. Add up the admission_total cost for each has_insurance group.
+
+SELECT 
+CASE WHEN patient_id % 2 = 0 Then 
+    'Yes'
+ELSE 
+    'No' 
+END as has_insurance,
+SUM(CASE WHEN patient_id % 2 = 0 Then 
+    10
+ELSE 
+    50 
+END) as cost_after_insurance
+FROM admissions 
+GROUP BY has_insurance;
+
+--hospital 6
+--Show the provinces that has more patients identified as 'M' than 'F'. Must only show full province_name
+
+SELECT pr.province_name
+FROM patients AS pa
+  JOIN province_names AS pr ON pa.province_id = pr.province_id
+GROUP BY pr.province_name
+HAVING
+  COUNT( CASE WHEN gender = 'M' THEN 1 END) > COUNT( CASE WHEN gender = 'F' THEN 1 END);
+
+--hospital 7
+--We are looking for a specific patient. Pull all columns for the patient who matches the following criteria:
+-- First_name contains an 'r' after the first two letters.
+-- Identifies their gender as 'F'
+-- Born in February, May, or December
+-- Their weight would be between 60kg and 80kg
+-- Their patient_id is an odd number
+-- They are from the city 'Kingston'
+
+SELECT *
+FROM patients
+WHERE
+  first_name LIKE '__r%'
+  AND gender = 'F'
+  AND MONTH(birth_date) IN (2, 5, 12)
+  AND weight BETWEEN 60 AND 80
+  AND patient_id % 2 = 1
+  AND city = 'Kingston';
+
+--Hospital 8
+--Show the percent of patients that have 'M' as their gender. Round the answer to the nearest hundreth number and in percent form.
+SELECT CONCAT(
+    ROUND(
+      (
+        SELECT COUNT(*)
+        FROM patients
+        WHERE gender = 'M'
+      ) / CAST(COUNT(*) as float),
+      4
+    ) * 100,
+    '%'
+  ) as percent_of_male_patients
+FROM patients;
