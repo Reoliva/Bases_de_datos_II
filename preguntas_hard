@@ -41,6 +41,13 @@ The password must be the following, in order:
 2. the numerical length of customer's contact_name
 3. the numerical length of customer's company_name
 
+CREATE VIEW orders_tracking_passwords AS
+SELECT customers.customer_id, 
+       CONCAT(customers.customer_id, LENGTH(customers.contact_name), LENGTH(customers.company_name)) AS temp_password
+FROM customers
+INNER JOIN orders ON customers.customer_id = orders.customer_id
+WHERE orders.order_id IS NOT NULL;
+
 
 5_
 Each shipp costs $20 for customers without amazon prime, and $5 for customers with amazon prime. All customers with an even customer_id have amazon prime.
