@@ -43,7 +43,9 @@ The password must be the following, in order:
 
 
 5_
+Each shipp costs $50 for customers without amazon prime, and $10 for customers with amazon prime. All customers with an even customer_id have amazon prime.
 
+Give each customer a 'Yes' if they have amazon prime, and a 'No' if they don't have amazon prime. Add up the shipp_total cost for each has_amazon_prime group.
 
 
 
