@@ -76,6 +76,25 @@ HAVING COUNT(CASE WHEN e.TitleOfCourtesy = 'Ms.' THEN 1 END) > COUNT(CASE WHEN e
 
 7_
 For each day display the total amount of orders on that day. Display the amount changed from the previous date.
+CREATE VIEW daily_orders_total AS
+SELECT 
+  o.order_date AS order_day,
+  COUNT(o.order_id) AS daily_orders,
+  (
+    SELECT COUNT(o2.order_id)
+    FROM orders o2
+    WHERE o2.order_date = DATE_SUB(o.order_date, INTERVAL 1 DAY)
+  ) AS orders_previous_day,
+  (
+    COUNT(o.order_id) - 
+    (
+      SELECT COUNT(o2.order_id)
+      FROM orders o2
+      WHERE o2.order_date = DATE_SUB(o.order_date, INTERVAL 1 DAY)
+    )
+  ) AS orders_variation
+FROM orders o
+GROUP BY order_day;
 
 8_
 Show the percent of employees that have 'Mr' as their title of courtesy. Round the answer to the nearest  multiple of 10 number and in percent form.
