@@ -12,13 +12,13 @@ ORDER BY price_group DESC;
 2_
 Show products_id, unit_price, units_in_stock, isOverstock from the product table.
 Display isOverstock as a boolean 0 or 1.
-Overstock is defined as units_in_stock($)/(unit_price(u)) >= 30.
+Overstock is defined as units_in_stock($)/(unit_price(u)) >= 5.
 unit_price is in units dolar.
 units_in_stock is in units u.
 
 CREATE VIEW product_info AS
 SELECT product_id, unit_price, units_in_stock,
-CASE WHEN units_in_stock / unit_price >= 30 THEN 1 ELSE 0 END AS isOverstock
+CASE WHEN units_in_stock / unit_price >= 5 THEN 1 ELSE 0 END AS isOverstock
 FROM products;
 
 
