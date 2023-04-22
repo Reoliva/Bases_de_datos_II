@@ -65,13 +65,6 @@ FROM orders;
 6_
 Sort the territories names in ascending order in such a way that the province 'Ontario' is always on top.
 
-CREATE VIEW territories_ms_more_than_mr AS
-SELECT t.TerritoryDescription AS Territory
-FROM Territories t
-JOIN EmployeeTerritories et ON t.TerritoryID = et.TerritoryID
-JOIN Employees e ON et.EmployeeID = e.EmployeeID
-GROUP BY t.TerritoryID, t.TerritoryDescription
-HAVING COUNT(CASE WHEN e.TitleOfCourtesy = 'Ms.' THEN 1 END) > COUNT(CASE WHEN e.TitleOfCourtesy = 'Mr.' THEN 1 END)
 
 
 7_
