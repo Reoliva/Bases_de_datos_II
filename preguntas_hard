@@ -16,6 +16,12 @@ Overstock is defined as units_in_stock($)/(unit_price(u)) >= 30.
 unit_price is in units dolar.
 units_in_stock is in units u.
 
+CREATE VIEW product_info AS
+SELECT product_id, unit_price, units_in_stock,
+CASE WHEN units_in_stock / unit_price >= 30 THEN 1 ELSE 0 END AS isOverstock
+FROM products;
+
+
 3_
 Show products_id, product_name, category_id, and supplier´s phone.
 Show only the products who has 0 units_in_stock and the company_name first name is 'Exotic Liquids'
