@@ -2,6 +2,12 @@ Show all of the products grouped into unit_price groups.
 Show the total amount of products in each unit_price group.
 Order the list by the unit_price decending
 
+CREATE VIEW product_price_groups AS
+SELECT CONCAT("$",FLOOR(unit_price/10)*10+1," - $",FLOOR(unit_price/10)*10+10) AS price_group, COUNT(*) AS total_products
+FROM products
+GROUP BY FLOOR(unit_price/10)
+ORDER BY price_group DESC;
+
 
 Show products_id, unit_price, units_in_stock, isOverstock from the patients table.
 Display isOverstock as a boolean 0 or 1.
