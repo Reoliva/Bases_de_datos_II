@@ -74,7 +74,8 @@ GROUP BY t.TerritoryID, t.TerritoryDescription
 HAVING COUNT(CASE WHEN e.TitleOfCourtesy = 'Ms.' THEN 1 END) > COUNT(CASE WHEN e.TitleOfCourtesy = 'Mr.' THEN 1 END)
 
 
-
+7_
+For each day display the total amount of orders on that day. Display the amount changed from the previous date.
 
 8_
 Show the percent of employees that have 'Mr' as their title of courtesy. Round the answer to the nearest  multiple of 10 number and in percent form.
