@@ -10,14 +10,17 @@ GROUP BY FLOOR(unit_price/10)
 ORDER BY price_group DESC;
 
 2_
-Show products_id, unit_price, units_in_stock, isOverstock from the patients table.
+Show products_id, unit_price, units_in_stock, isOverstock from the product table.
 Display isOverstock as a boolean 0 or 1.
 Overstock is defined as units_in_stock($)/(unit_price(u)) >= 30.
 unit_price is in units dolar.
 units_in_stock is in units u.
 
 3_
+Show products_id, product_name, category_id, and supplier´s phone.
+Show only the products who has 0 units_in_stock and the company_name first name is 'Exotic Liquids'
 
+ 
 
 
 
