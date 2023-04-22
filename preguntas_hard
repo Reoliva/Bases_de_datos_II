@@ -68,3 +68,37 @@ Show the territories that has more employeers identified as 'Ms' than 'Mr'. Must
 
 
 
+8_
+Show the percent of employees that have 'Mr' as their title of courtesy. Round the answer to the nearest  multiple of 10 number and in percent form.
+CREATE VIEW percent_employees_mr AS
+SELECT ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM employees), -1) AS percent_mr_employees
+FROM employees
+WHERE title_of_courtesy LIKE '%Mr.%'
+
+9_
+Show the employees first_name and last_name, a "num_orders" column with a count of the orders taken, and a column called "Shipped" that displays "On Time" if the order shipped on time and "Late" if the order shipped late.
+Order by employee last_name, then by first_name, and then descending by number of orders.
+Mostrar el nombre y apellido del empleado, una columna "num_orders" con la cantidad de pedidos realizados, y una columna llamada "Shipped" que muestra "On Time" si el pedido se envió a tiempo y "Late" si se envió tarde.
+Ordenar por apellido del empleado, luego por nombre, y luego en orden descendente por número de pedidos.
+
+CREATE VIEW employee_order_info AS
+SELECT
+  e.first_name,
+  e.last_name,
+  COUNT(o.order_id) As num_orders,
+  (
+    CASE
+      WHEN o.shipped_date < o.required_date THEN 'On Time'
+      ELSE 'Late'
+    END
+  ) AS shipped
+FROM orders o
+  JOIN employees e ON e.employee_id = o.employee_id
+GROUP BY
+  e.first_name,
+  e.last_name,
+  shipped
+ORDER BY
+  e.last_name,
+  e.first_name,
+  num_orders DESC
