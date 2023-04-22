@@ -24,13 +24,13 @@ FROM products;
 
 3_
 Show products_id, product_name, category_id, and supplier´s phone.
-Show only the products who has 0 units_in_stock and the company_name first name is 'Exotic Liquids'
+Show only the products who has 0 units_in_stock and the company_name first name is 'New Orleans Cajun Delights'
 
 CREATE VIEW out_of_stock_products AS
 SELECT p.product_id, p.product_name, p.category_id, s.phone
 FROM products p
 JOIN suppliers s ON p.supplier_id = s.supplier_id
-WHERE p.units_in_stock = 0 AND s.company_name LIKE 'Exotic Liquids%';
+WHERE p.units_in_stock = 0 AND s.company_name LIKE 'New Orleans Cajun Delights%';
 
 
 4_
