@@ -63,7 +63,7 @@ SELECT
 FROM orders;
 
 6_
-Sort the territories names in ascending order in such a way that the province 'Ontario' is always on top.
+Sort the territories names in ascending order in such a way that the province 'Boston' is always on top.
 
 
 
