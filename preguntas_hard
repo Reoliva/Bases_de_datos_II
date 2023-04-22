@@ -63,13 +63,22 @@ SELECT
 FROM orders;
 
 6_
-Show the territories that has more employeers identified as 'Ms' than 'Mr'. Must only territories names(hay que hacer un join para mostrar los nombres)
+Show the territories that has more employeers identified as 'Ms' than 'Mr'. Must only territories names (hay que hacer un join para mostrar los nombres)
+
+CREATE VIEW territories_ms_more_than_mr AS
+SELECT t.TerritoryDescription AS Territory
+FROM Territories t
+JOIN EmployeeTerritories et ON t.TerritoryID = et.TerritoryID
+JOIN Employees e ON et.EmployeeID = e.EmployeeID
+GROUP BY t.TerritoryID, t.TerritoryDescription
+HAVING COUNT(CASE WHEN e.TitleOfCourtesy = 'Ms.' THEN 1 END) > COUNT(CASE WHEN e.TitleOfCourtesy = 'Mr.' THEN 1 END)
 
 
 
 
 8_
 Show the percent of employees that have 'Mr' as their title of courtesy. Round the answer to the nearest  multiple of 10 number and in percent form.
+
 CREATE VIEW percent_employees_mr AS
 SELECT ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM employees), -1) AS percent_mr_employees
 FROM employees
